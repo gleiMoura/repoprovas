@@ -16,4 +16,48 @@ model users {
   password String 
 }
 
+model tests {
+  id Int @id @default(autoincrement())
+  name String
+  pdfUrl String
+  categoryId Int
+  category categories @relation(fields: [categoryId], references: [id])
+  teacherDisciplineId Int
+  teacherDiscipline teacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
+}
+
+model categories {
+  id Int @id @default(autoincrement())
+  name String @unique
+  tests tests[]
+}
+
+model teacherDiscipline {
+  id Int @id @default(autoincrement())
+  teacherId Int
+  teacher teachers @relation(fields: [teacherId], references: [id])
+  disciplineId Int
+  discipline disciplines @relation(fields: [disciplineId], references: [id])
+  tests tests[]
+}
+
+model teachers {
+  id Int @id @default(autoincrement())
+  name String @unique
+  teacher teacherDiscipline[]
+}
+
+model disciplines {
+  id Int @id @default(autoincrement())
+  name String @unique
+  termId Int
+  term terms @relation(fields: [termId], references: [id])
+  discipline teacherDiscipline[]
+}
+
+model terms {
+  id Int @id @default(autoincrement())
+  number Int @unique
+  term disciplines[]
+}
 
