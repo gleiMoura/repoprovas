@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createNewUser } from "../services/authService.js";
+import { createNewUser, authorizelogin } from "../services/authService.js";
 
 export async function doRegister (req: Request, res: Response) {
     const user = req.body;
@@ -10,6 +10,10 @@ export async function doRegister (req: Request, res: Response) {
 };
 
 export async function doLogin (req: Request, res: Response) {
-    
-};
+    const user = req.body;
+
+    const token = await authorizelogin(user);
+
+    res.status(200).send(token)
+};  
 
