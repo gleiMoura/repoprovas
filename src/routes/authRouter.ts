@@ -6,8 +6,8 @@ import { doRegister, doLogin } from "../Controllers/authController.js";
 
 const authRouter = Router();
 
-authRouter.post("/signIn",schemaValidator(signInSchema), doLogin);
+authRouter.post("/sign-in",schemaValidator(signInSchema), doLogin);
 
-authRouter.post("/signUp", schemaValidator(signUpSchema), doRegister);
+authRouter.post("/sign-up", schemaValidator(signUpSchema), doRegister);
 
 export default authRouter;
