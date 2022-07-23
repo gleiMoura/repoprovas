@@ -5,6 +5,6 @@ import { createTest } from "../Controllers/testController.js";
 
 const testsRouter = Router();
 
-testsRouter.post("/createTest", schemaValidator(testSchema), createTest);
+testsRouter.post("/tests", schemaValidator(testSchema), createTest);
 
 export default testsRouter;
