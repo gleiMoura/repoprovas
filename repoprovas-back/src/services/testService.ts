@@ -1,4 +1,5 @@
 import { createTestInDatabase, findTeacherDisciplineId, getTestsByElement } from "../repositories/testRepository.js"
+import authorizeAccessByToken from "../utils/sharedUtils.js";
 
 export interface Test {
     name: string,
@@ -8,7 +9,9 @@ export interface Test {
     discipline: number
 }
 
-export async function createNewTest( test: Test ) {
+export async function createNewTest( test: Test, authorization: string ) {
+    authorizeAccessByToken(authorization);
+
     const teacherDiscipline = await findTeacherDisciplineId(test);
 
     if(!teacherDiscipline) {
@@ -25,7 +28,9 @@ export async function createNewTest( test: Test ) {
     return testData
 };
 
-export async function getAllTestsByElement(element: any) {
+export async function getAllTestsByElement(element: any, authorization: string) {
+    authorizeAccessByToken(authorization);
+
     const tests = await getTestsByElement(element);
 
     if(!tests){
