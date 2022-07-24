@@ -24,6 +24,7 @@ import api, {
 function Disciplines() {
   const navigate = useNavigate();
   const { token } = useAuth();
+
   const [terms, setTerms] = useState<TestByDiscipline[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
 

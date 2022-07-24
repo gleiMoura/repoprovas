@@ -7,6 +7,7 @@ const baseAPI = axios.create({
 interface UserData {
   email: string;
   password: string;
+  passwordConfirmation: string
 }
 
 function getConfig(token: string) {

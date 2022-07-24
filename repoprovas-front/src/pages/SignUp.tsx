@@ -79,7 +79,7 @@ function SignUp() {
     }
 
     try {
-      await api.signUp({ email, password });
+      await api.signUp({ email, password, passwordConfirmation });
       setMessage({ type: "success", text: "Cadastro efetuado com sucesso!" });
       navigate("/login");
     } catch (error: Error | AxiosError | any) {
