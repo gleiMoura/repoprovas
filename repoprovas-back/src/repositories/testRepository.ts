@@ -33,22 +33,38 @@ export async function createTestInDatabase(test: Test, teacherDiscipline: teache
 
 export async function getTestsByElement(element: string) {
     let tests = null;
-
     if(element === "disciplines") {
-        tests = prisma.terms.findMany({
+        tests = await prisma.terms.findMany({
             select:{id:true, number: true,
                 disciplines: {select: {id: true, name: true,
                     term:{},
                     teacherDisciplines: {select:{
                         tests: {select:{name: true, pdfUrl: true, category:true}},
                         teacher: {select:{name: true}},
-                        disciplines: {}
                     }
                     }}}}
         })
+    console.log(element)
+    }
     
+    if(element === "teachers") {
+        tests = await prisma.teachersDisciplines.findMany({
+            include:{
+                discipline: {
+                    include:{
+                        term:{}
+                    },
+                },
+                teacher: {},
+                tests:{
+                    include: {
+                        category: {},
+                    },
+                },
+            },
+        });
+    console.log(typeof element)
+    }
 
     return tests;
-}
-
 }

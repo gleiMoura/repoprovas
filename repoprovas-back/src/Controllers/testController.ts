@@ -15,6 +15,8 @@ export async function getTestsByElement(req: Request, res: Response) {
     const element = req.query.groupBy;
     const { authorization } = req.headers;
 
+    console.log(element)
+
     const tests = await getAllTestsByElement(element, authorization);
 
     res.status(200).send({tests});

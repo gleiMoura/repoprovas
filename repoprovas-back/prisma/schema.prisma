@@ -37,7 +37,7 @@ model teachersDisciplines {
   teacherId Int
   teacher teachers @relation(fields: [teacherId], references: [id])
   disciplineId Int
-  disciplines disciplines @relation(fields: [disciplineId], references: [id])
+  discipline disciplines @relation(fields: [disciplineId], references: [id])
   tests tests[]
 }
 
