@@ -1,11 +1,11 @@
 import prisma from "../config/database.js"
-import { teacherDiscipline } from "@prisma/client";
+import { teachersDisciplines } from "@prisma/client";
 
 import { Test } from "../services/testService.js";
 
 export async function findTeacherDisciplineId(test: Test) {
     const { discipline, teacher } = test;
-    const teacherDisciplineData = await prisma.teacherDiscipline.findFirst({
+    const teacherDisciplineData = await prisma.teachersDisciplines.findFirst({
         where: {
             teacherId: teacher,
             disciplineId: discipline
@@ -15,7 +15,7 @@ export async function findTeacherDisciplineId(test: Test) {
     return teacherDisciplineData
 }
 
-export async function createTestInDatabase(test: Test, teacherDiscipline: teacherDiscipline) {
+export async function createTestInDatabase(test: Test, teacherDiscipline: teachersDisciplines) {
     const { name, pdfUrl, category } = test;
 
 
@@ -36,27 +36,19 @@ export async function getTestsByElement(element: string) {
 
     if(element === "disciplines") {
         tests = prisma.terms.findMany({
-            orderBy: { number: "asc" },
-            include: {
-                disciplines: {
-                    include: {
-                        teacherDiscipline: {
-                            include: {
-                                disciplines: {},
-                                tests: { include: { categories: {} } },
-                                teachers: {}
-                            }
-                        },
-                        term: {}
+            select:{id:true, number: true,
+                disciplines: {select: {id: true, name: true,
+                    term:{},
+                    teacherDisciplines: {select:{
+                        tests: {select:{name: true, pdfUrl: true, category:true}},
+                        teacher: {select:{name: true}},
+                        disciplines: {}
                     }
-                }
-            }
-        });
-    }
+                    }}}}
+        })
     
 
     return tests;
 }
-    
 
-;
+}

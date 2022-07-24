@@ -17,5 +17,5 @@ export async function getTestsByElement(req: Request, res: Response) {
 
     const tests = await getAllTestsByElement(element, authorization);
 
-    res.status(200).send(tests);
+    res.status(200).send({tests});
 }
