@@ -11,14 +11,14 @@ datasource db {
 }
 
 model users {
-  id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement()) @unique
   email String @unique
   password String 
 }
 
 model tests {
-  id Int @id @default(autoincrement())
-  name String
+  id Int @id @default(autoincrement()) @unique
+  name String 
   pdfUrl String
   categoryId Int
   category categories @relation(fields: [categoryId], references: [id])
@@ -27,13 +27,13 @@ model tests {
 }
 
 model categories {
-  id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement()) @unique
   name String @unique
   tests tests[]
 }
 
 model teachersDisciplines {
-  id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement()) @unique
   teacherId Int
   teacher teachers @relation(fields: [teacherId], references: [id])
   disciplineId Int
@@ -42,13 +42,13 @@ model teachersDisciplines {
 }
 
 model teachers {
-  id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement()) @unique
   name String @unique
   teacherDisciplines teachersDisciplines[]
 }
 
 model disciplines {
-  id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement()) @unique
   name String @unique
   termId Int
   term terms @relation(fields: [termId], references: [id])
@@ -56,7 +56,7 @@ model disciplines {
 }
 
 model terms {
-  id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement()) @unique
   number Int @unique
   disciplines disciplines[]
 }
