@@ -23,7 +23,8 @@ export async function createUser () {
 
 export async function createToken() {
     const { insertedUser } = await createUser();
+
     const token = jwt.sign({ userId: insertedUser.id }, SECRET, {expiresIn: 36000});
 
-    return token;
+    return token; 
 };
